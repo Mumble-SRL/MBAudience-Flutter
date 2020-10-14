@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mbaudience.iml" filepath="$PROJECT_DIR$/mbaudience.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/mbaudience_android.iml" filepath="$PROJECT_DIR$/android/mbaudience_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/mbaudience_example_android.iml" filepath="$PROJECT_DIR$/example/android/mbaudience_example_android.iml" />
+    </modules>
+  </component>
+</project>
