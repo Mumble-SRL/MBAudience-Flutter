@@ -7,13 +7,11 @@ class MBAudienceFlutterPlugin {
   static const MethodChannel _channel = const MethodChannel('mbaudience');
 
   static Future<void> startLocationUpdates() async {
-    //TODO: Android start location updates
     await _channel.invokeMethod('startLocationUpdates');
     return;
   }
 
   static Future<void> stopLocationUpdates() async {
-    //TODO: Android stop location updates
     await _channel.invokeMethod('stopLocationUpdates');
     return;
   }
@@ -30,7 +28,6 @@ class MBAudienceFlutterPlugin {
   }
 
   static Future<dynamic> _mbaudienceHandler(MethodCall methodCall) async {
-    //TODO: Android part update metadata
     if (methodCall.method == 'updateMetadata') {
       MBAudienceManager.shared.updateMetadata();
     } else if (methodCall.method == 'updateLocation' &&
