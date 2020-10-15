@@ -10,9 +10,9 @@ class MBAudience extends MBPlugin {
   }
 
   Future<void> _pluginStartup() async {
+    await MBAudienceFlutterPlugin.initializeMethodCall();
     await MBAudienceManager.shared.increaseSession();
     await MBAudienceManager.shared.updateMetadata();
-    MBAudienceFlutterPlugin.initializeMethodCall();
   }
 
 //region tags

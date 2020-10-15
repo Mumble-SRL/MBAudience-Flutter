@@ -68,7 +68,7 @@ class MbaudiencePlugin: FlutterPlugin, MethodCallHandler {
               (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
         locationClient?.requestLocationUpdates(mLocationRequest, locationCallback, Looper.getMainLooper())
       } else {
-
+        //TODO: request permissions
       }
     }
   }

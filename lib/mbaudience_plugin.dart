@@ -31,8 +31,8 @@ class MBAudienceFlutterPlugin {
     if (methodCall.method == 'updateMetadata') {
       MBAudienceManager.shared.updateMetadata();
     } else if (methodCall.method == 'updateLocation' &&
-        methodCall.arguments is Map<String, dynamic>) {
-      Map<String, dynamic> latLng = methodCall.arguments;
+        methodCall.arguments is Map) {
+      Map<String, dynamic> latLng = Map.castFrom<dynamic, dynamic, String, dynamic>(methodCall.arguments);
       double latitude = latLng['latitude'];
       double longitude = latLng['longitude'];
 

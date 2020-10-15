@@ -22,3 +22,7 @@ classpath 'com.google.gms:google-services:4.3.3'
 dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 }
+
+# iOS
+
+Info.plist privacy key

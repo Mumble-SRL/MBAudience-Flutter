@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import CoreLocation
 
-public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin,  {
+public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin {
     private static var staticChannel: FlutterMethodChannel?
     private var locationManager: CLLocationManager?
 
@@ -17,8 +17,10 @@ public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin,  {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if call.method == "startLocationUpdates" {
             startLocationUpdates()
+            result(true)
         } else if call.method == "endLocationUpdates" {
             stopLocationUpdates()
+            result(true)
         }
     }
 
@@ -46,14 +48,15 @@ public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin,  {
 }
 
 extension SwiftMbaudiencePlugin: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
+            let arguments: [String: Any] = ["latitude": lastLocation.coordinate.latitude,
+                                            "longitude": lastLocation.coordinate.longitude]
             SwiftMbaudiencePlugin.staticChannel?.invokeMethod("updateLocation",
-                                                              arguments: {"latitude": lastLocation.latitude,
-                                                                          "longitude": lastLocation.longitude})
+                                                              arguments: arguments)
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     }
 }

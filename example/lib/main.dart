@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:mbaudience/mbaudience.dart';
+import 'package:mbaudience/mbaudience_manager.dart';
+import 'package:mburger/mburger.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,9 +16,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
+    MBManager.shared.plugins = [MBAudience()];
+
+    MBAudience audience = MBManager.shared.plugins.firstWhere(
+      (element) => element is MBAudience,
+      orElse: null,
+    );
+
+    audience.startLocationUpdates();
+
     super.initState();
   }
 
