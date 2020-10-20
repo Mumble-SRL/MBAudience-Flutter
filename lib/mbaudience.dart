@@ -78,6 +78,9 @@ class MBAudience extends MBPlugin {
     return MBAudienceFlutterPlugin.stopLocationUpdates();
   }
 
+  static set onLocation(Function(Map) value) {
+  }
+
   Future<void> setCurrentLocation(double latitude, double longitude) {
     return MBAudienceManager.shared.setCurrentLocation(latitude, longitude);
   }
