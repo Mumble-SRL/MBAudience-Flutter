@@ -131,9 +131,9 @@ packages:
   mburger:
     dependency: "direct main"
     description:
-      name: mburger
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../mburger"
+      relative: true
+    source: path
     version: "0.0.1+18"
   meta:
     dependency: transitive
