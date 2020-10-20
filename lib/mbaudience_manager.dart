@@ -3,14 +3,13 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:mbaudience/managers/mbaudience_ids_manager.dart';
 import 'package:mbaudience/managers/mbaudience_session_manager.dart';
 import 'package:mbaudience/managers/mbaudience_tags_manager.dart';
 import 'package:mburger/mb_manager.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import 'package:http/http.dart' as http;
 
 class MBAudienceManager extends WidgetsBindingObserver {
   MBAudienceSessionManager _sessionManager = MBAudienceSessionManager();
@@ -49,6 +48,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
       _sessionManager.startSession();
     }
   }
+
 //endregion
 
 //region custom id
@@ -63,6 +63,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
   Future<String> getCustomId() async {
     return _idsManager.getCustomId();
   }
+
 //endregion
 
 //region mobile user id
@@ -77,6 +78,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
   Future<int> getMobileUserId() async {
     return _idsManager.getMobileUserId();
   }
+
 //endregion
 
 //region tags
@@ -101,6 +103,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
   Future<void> removeTags(List<String> tags) async {
     return _tagsManager.removeTags(tags);
   }
+
 //endregion
 
 //region location
@@ -116,6 +119,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
     }
     return null;
   }
+
 //endregion
 
 //region api
