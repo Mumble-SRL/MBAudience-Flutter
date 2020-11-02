@@ -106,6 +106,9 @@ class MBAudienceManager extends WidgetsBindingObserver {
 //endregion
 
 //region tags
+  /// Sets a tag in the `MBAudienceTagsManager` instance.
+  /// @param tag The tag.
+  /// @param value The value of the tag.
   Future<void> setTag({
     @required tag,
     @required value,
@@ -116,14 +119,20 @@ class MBAudienceManager extends WidgetsBindingObserver {
     );
   }
 
+  /// Sets n tags in the `MBAudienceTagsManager` instance.
+  /// @param tags a map of tags and values.
   Future<void> setTags({@required Map<String, String> tags}) async {
     return _tagsManager.setTags(tags: tags);
   }
 
+  /// Removes the tag with the specified key in the `MBAudienceTagsManager` instance.
+  /// @param tag The tag that needs to be removed.
   Future<void> removeTag(String tag) async {
     return _tagsManager.removeTag(tag);
   }
 
+  /// Removes an array of tags in the `MBAudienceTagsManager` instance.
+  /// @param tags An array of tags that will be removed.
   Future<void> removeTags(List<String> tags) async {
     return _tagsManager.removeTags(tags);
   }
@@ -131,6 +140,10 @@ class MBAudienceManager extends WidgetsBindingObserver {
 //endregion
 
 //region location
+
+  /// Sets the current location and updates MBAudience data if the distance is > 100m from the last location
+  /// @param latitude The new latitude.
+  /// @param longitude The new longitude.
   Future<void> setCurrentLocation(double latitude, double longitude) {
     _MBAudienceLocation lastLocation = _currentLocation;
     _MBAudienceLocation newLocation = _MBAudienceLocation(latitude, longitude);
@@ -143,10 +156,10 @@ class MBAudienceManager extends WidgetsBindingObserver {
     }
     return null;
   }
-
 //endregion
 
 //region api
+  /// Function to update the data in MBurger.
   Future<void> updateMetadata() async {
     var defaultParameters = await MBManager.shared.defaultParameters();
     var headers = await MBManager.shared.headers(contentTypeJson: true);
@@ -222,6 +235,8 @@ class MBAudienceManager extends WidgetsBindingObserver {
     MBManager.checkResponse(response.body, checkBody: false);
   }
 
+  /// Calls the API to updates location data in MBurger.
+  /// It used the value stored in `_currentLocation`, if it's null the API isn't called.
   Future<void> _updateLocation() async {
     print("Update location");
     try {
@@ -251,13 +266,21 @@ class MBAudienceManager extends WidgetsBindingObserver {
 //endregion
 }
 
+/// An object to represent a location
 class _MBAudienceLocation {
+  /// The latitude of the location
   final double latitude;
+  /// The longitude of the location
   final double longitude;
 
+  /// Initializes a new location with latitude and longitude
+  /// @param latitude The latitude of the location
+  /// @param longitude The longitude of the location
   _MBAudienceLocation(this.latitude, this.longitude);
 
-  //Distance in meters
+  /// Calculates the distance from this location and another instance of `_MBAudienceLocation`.
+  /// @param location The other location.
+  /// @returns the distance in meters.
   double distanceFromLocation(_MBAudienceLocation location) {
     double lat1 = location.latitude;
     double lon1 = location.longitude;
