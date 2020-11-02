@@ -11,18 +11,25 @@ import 'package:mburger/mb_manager.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+/// Main singleton that manages the state of MBAudience and communication with MBurger APIs.
 class MBAudienceManager extends WidgetsBindingObserver {
+  /// Class that manages start and end od sessions and session number
   MBAudienceSessionManager _sessionManager = MBAudienceSessionManager();
+  /// Class that manages tags, saving and retrival of them
   MBAudienceTagsManager _tagsManager = MBAudienceTagsManager();
+  /// Class that manages custom ids andd MBurger ids.
   MBAudienceIdsManager _idsManager = MBAudienceIdsManager();
 
+  /// Initializes the singleton, initilizing the `WidgetsBinding` callback.
   MBAudienceManager._privateConstructor() {
     WidgetsBinding.instance.addObserver(this);
   }
 
+  /// Private singleton instance.
   static final MBAudienceManager _shared =
       MBAudienceManager._privateConstructor();
 
+  /// Current location, saved to send location updates only if they are distant at least 100m
   _MBAudienceLocation _currentLocation;
 
   /// The singleton that manages all the data sent and received to/from MBurger.
@@ -32,34 +39,46 @@ class MBAudienceManager extends WidgetsBindingObserver {
 
 //region app lifecycle
 
+  /// Increases the session using the `MBAudienceSessionManager class.
   Future<void> increaseSession() {
     return _sessionManager.increaseSession();
   }
 
+  /// The current session retrieved from the `MBAudienceSessionManager class.
+  /// @returns The current session number.
   Future<int> currentSession() {
     return _sessionManager.currentSession;
   }
 
+  /// Function called when the app changes the lifecycle state.
+  /// @param state The new app state.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state != AppLifecycleState.resumed) {
       _sessionManager.endSession();
     } else {
-      _sessionManager.startSession();
+      _sessionManager.startSession().then(
+            (_) => updateMetadata(),
+          );
     }
   }
 
 //endregion
 
 //region custom id
+  /// Set a custom id in the `MBAudienceIdsManager` instance.
+  /// @param customId The custom id.
   Future<void> setCustomId(String customId) async {
     return _idsManager.setCustomId(customId);
   }
 
+  /// Removes the custom id in the `MBAudienceIdsManager` instance.
   Future<void> removeCustomId() async {
     return _idsManager.removeCustomId();
   }
 
+  /// The custom id in the `MBAudienceIdsManager` instance.
+  /// @returns a Future that completes with the saved custom id.
   Future<String> getCustomId() async {
     return _idsManager.getCustomId();
   }
@@ -67,14 +86,19 @@ class MBAudienceManager extends WidgetsBindingObserver {
 //endregion
 
 //region mobile user id
+  /// Set the mobile user id in the `MBAudienceIdsManager` instance.
+  /// @param mobileUserId The mobile user id.
   Future<void> setMobileUserId(int mobileUserId) async {
     return _idsManager.setMobileUserId(mobileUserId);
   }
 
+  /// Removes the mobile user in the `MBAudienceIdsManager` instance.
   Future<void> removeMobileUserId() async {
     return _idsManager.removeMobileUserId();
   }
 
+  /// The current saved mobile user id in the `MBAudienceIdsManager` instance.
+  /// @returns a Future that completes with the current saved mobile user id.
   Future<int> getMobileUserId() async {
     return _idsManager.getMobileUserId();
   }

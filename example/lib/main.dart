@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    MBManager.shared.apiToken = 'YOUR_API_TOKEN';
     MBManager.shared.plugins = [MBAudience()];
 
     MBAudience audience = MBManager.shared.plugins.firstWhere(
