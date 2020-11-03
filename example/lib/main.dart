@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:mbaudience/mbaudience.dart';
-import 'package:mbaudience/mbaudience_manager.dart';
 import 'package:mburger/mburger.dart';
 
 void main() {
@@ -70,22 +66,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _setTag() {
-    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
-    audience.setTag(tag: 'Tag', value: 'Value');
+    MBAudience.setTag(tag: 'Tag', value: 'Value');
   }
 
   void _setCustomId() {
-    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
-    audience.setCustomId('CUSTOM_ID');
+    MBAudience.setCustomId('CUSTOM_ID');
   }
 
   void _startLocationUpdates() {
-    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
-    audience.startLocationUpdates();
+    MBAudience.startLocationUpdates();
   }
 
   void _stopLocationUpdates() {
-    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
-    audience.stopLocationUpdates();
+    MBAudience.stopLocationUpdates();
   }
 }

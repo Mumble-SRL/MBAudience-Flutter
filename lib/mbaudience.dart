@@ -40,7 +40,7 @@ class MBAudience extends MBPlugin {
   /// After setting the new tag the new audience data are sent to the server.
   /// @param tag The tag.
   /// @param value The value of the tag.
-  Future<void> setTag({
+  static Future<void> setTag({
     @required tag,
     @required value,
   }) async {
@@ -54,19 +54,19 @@ class MBAudience extends MBPlugin {
   /// Set multiple tags with a Map, the keys of the map are the tags, the values the values for the corresponding tag.
   /// After setting the new tags the new audience data are sent to the server.
   /// @param tags The map of tags and values.
-  Future<void> setTags({@required Map<String, String> tags}) async {
+  static Future<void> setTags({@required Map<String, String> tags}) async {
     return MBAudienceManager.shared.setTags(tags: tags);
   }
 
   /// Removes the tag with the specified key and syncs audience data with the server.
   /// @param tag The key of the tag that needs to be removed.
-  Future<void> removeTag(String tag) async {
+  static Future<void> removeTag(String tag) async {
     return MBAudienceManager.shared.removeTag(tag);
   }
 
   /// Removes the tags with the specified keys and syncs audience data with the server.
   /// @param tags The keys of the tags that need to be removed.
-  Future<void> removeTags(List<String> tags) async {
+  static Future<void> removeTags(List<String> tags) async {
     return MBAudienceManager.shared.removeTags(tags);
   }
 
@@ -76,18 +76,18 @@ class MBAudience extends MBPlugin {
   /// Set a custom id that will be sent with the audience data, this can be used if  you want to target users coming from different platforms from `MBurger`.
   /// After setting this id the new audience data are sent to the server.
   /// @param customId The custom id, this value is saved and will be sent until `removeCustomId` is called.
-  Future<void> setCustomId(String customId) {
+  static Future<void> setCustomId(String customId) {
     return MBAudienceManager.shared.setCustomId(customId);
   }
 
   /// Removes the custom id saved and sync audience data to the server.
-  Future<void> removeCustomId() {
+  static Future<void> removeCustomId() {
     return MBAudienceManager.shared.removeCustomId();
   }
 
   /// Retrieves the current saved custom id.
   /// @returns a Future that completes with the current saved custom id.
-  Future<String> getCustomId() {
+  static Future<String> getCustomId() {
     return MBAudienceManager.shared.getCustomId();
   }
 //endregion
@@ -98,18 +98,18 @@ class MBAudience extends MBPlugin {
   ///
   /// NOTE: The mobile user id is not sent automatically when a user log in/log out with MBAuth. It will be implemented in the future but at the moment you have to set and remove it manually.
   /// @param mobileUserId The mobile user id, this value is saved and will be sent until `removeMobileUserId` is called.
-  Future<void> setMobileUserId(int mobileUserId) {
+  static Future<void> setMobileUserId(int mobileUserId) {
     return MBAudienceManager.shared.setMobileUserId(mobileUserId);
   }
 
   /// Removes the mobile user id saved and sync audience data to the server.
-  Future<void> removeMobileUserId() {
+  static Future<void> removeMobileUserId() {
     return MBAudienceManager.shared.removeMobileUserId();
   }
 
   /// Retrieves the current saved mobile user id.
   /// @returns a Future that completes with the current saved mobile user id.
-  Future<int> getMobileUserId() {
+  static Future<int> getMobileUserId() {
     return MBAudienceManager.shared.getMobileUserId();
   }
 //endregion
@@ -124,12 +124,12 @@ class MBAudience extends MBPlugin {
   /// which is killed the moment the app goes in background.
   /// If you wish to track user position while app is in background you need to implement your own location service,
   /// then when you have a new location you can use this API to send it to the framework: `setCurrentLocation(latitude, longitude)`
-  Future<void> startLocationUpdates() {
+  static Future<void> startLocationUpdates() {
     return MBAudienceFlutterPlugin.startLocationUpdates();
   }
 
   /// Stop collecting location data.
-  Future<void> stopLocationUpdates() {
+  static Future<void> stopLocationUpdates() {
     return MBAudienceFlutterPlugin.stopLocationUpdates();
   }
 
@@ -138,7 +138,7 @@ class MBAudience extends MBPlugin {
   /// Note: a new location is sent to MBurger only if it's distant at least 100m from the last location seen.
   /// @param latitude Current latitude.
   /// @param longitude Current longitude.
-  Future<void> setCurrentLocation(double latitude, double longitude) {
+  static Future<void> setCurrentLocation(double latitude, double longitude) {
     MBPluginsManager.locationDataUpdated(latitude, longitude);
     return MBAudienceManager.shared.setCurrentLocation(latitude, longitude);
   }
