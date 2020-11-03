@@ -21,13 +21,6 @@ class _MyAppState extends State<MyApp> {
     MBManager.shared.apiToken = 'YOUR_API_TOKEN';
     MBManager.shared.plugins = [MBAudience()];
 
-    MBAudience audience = MBManager.shared.plugins.firstWhere(
-      (element) => element is MBAudience,
-      orElse: null,
-    );
-
-    audience.startLocationUpdates();
-
     super.initState();
   }
 
@@ -36,12 +29,63 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('MBAudience example app'),
         ),
         body: Center(
-          child: Text('Running on: '),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  onPressed: () => _setTag(),
+                  child: Text('Set tag'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  onPressed: () => _setCustomId(),
+                  child: Text('Set custom id'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  onPressed: () => _startLocationUpdates(),
+                  child: Text('Start location updates'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  onPressed: () => _stopLocationUpdates(),
+                  child: Text('Stop location updates'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _setTag() {
+    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
+    audience.setTag(tag: 'Tag', value: 'Value');
+  }
+
+  void _setCustomId() {
+    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
+    audience.setCustomId('CUSTOM_ID');
+  }
+
+  void _startLocationUpdates() {
+    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
+    audience.startLocationUpdates();
+  }
+
+  void _stopLocationUpdates() {
+    MBAudience audience = MBManager.shared.pluginOf<MBAudience>();
+    audience.stopLocationUpdates();
   }
 }

@@ -1,28 +1,27 @@
-# mbaudience
+# MBAudience
 
-MBaudience plugin for the MBurger platform.
+MBAudienceSwift is a plugin libary for [MBurger](https://mburger.cloud), that lets you track user data and behavior inside your and to target messages only to specific users or groups of users. This plugin is often used with the [MBMessages](https://github.com/Mumble-SRL/MBMessages-Flutter) plugin to being able to send push and messages only to targeted users.
 
-## Getting Started
+# Installation
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+You can install the MBAudience SDK using pub, add this to your pubspec.yaml file:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+``` yaml
+dependencies:
+  mbaudience: ^0.0.1
+```
 
-# Android
+And then install packages from the command line with:
 
-Add to dependencies
+``` bash
+$ flutter pub get
+```
 
-classpath 'com.google.gms:google-services:4.3.3'
+# Initialization
 
-dependencies {
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-}
+To initialize the SDK you have to add `MBAudience` to the array of plugins of `MBurger`.
 
-# iOS
-
-Info.plist privacy key
+```
+MBManager.shared.apiToken = 'YOUR_API_TOKEN';
+MBManager.shared.plugins = [MBAudience()];
+```
