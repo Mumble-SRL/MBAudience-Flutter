@@ -49,7 +49,7 @@ packages:
       name: device_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2+8"
+    version: "0.4.2+9"
   device_info_platform_interface:
     dependency: transitive
     description:
@@ -131,10 +131,10 @@ packages:
   mburger:
     dependency: "direct main"
     description:
-      path: "../mburger"
-      relative: true
-    source: path
-    version: "0.0.1+18"
+      name: mburger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+19"
   meta:
     dependency: transitive
     description:
@@ -220,12 +220,12 @@ packages:
     source: hosted
     version: "3.0.13"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.12"
+    version: "0.5.12+2"
   shared_preferences_linux:
     dependency: transitive
     description:

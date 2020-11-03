@@ -1,6 +1,6 @@
 # MBAudience
 
-MBAudienceSwift is a plugin libary for [MBurger](https://mburger.cloud), that lets you track user data and behavior inside your and to target messages only to specific users or groups of users. This plugin is often used with the [MBMessages](https://github.com/Mumble-SRL/MBMessages-Flutter) plugin to being able to send push and messages only to targeted users.
+MBAudience is a plugin libary for [MBurger](https://mburger.cloud), that lets you track user data and behavior inside your and to target messages only to specific users or groups of users. This plugin is often used with the [MBMessages](https://github.com/Mumble-SRL/MBMessages-Flutter) plugin to being able to send push and messages only to targeted users.
 
 MBAudience depends on the following packages:
 
@@ -98,13 +98,13 @@ MBAudience.setMobileUserId(1);
 
 To remove it, if the user logs out:
 
-```swift
+```dart
 MBAudience.removeMobileUserId();
 ```
 
 To get the currently saved mobile user id: 
 
-```swift
+```dart
 int mobileUserId = await MBAudience.getMobileUserId();
 ```
 
