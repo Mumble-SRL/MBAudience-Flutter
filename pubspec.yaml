@@ -1,12 +1,12 @@
 name: mbaudience
 description: MBaudience plugin for the MBurger platform.
 documentation: https://docs.ep.mburger.cloud
-version: 0.0.1
+version: 0.0.1+1
 authors:
   - Lorenzo Oliveto <lorenzo.oliveto@mumbleideas.it>
   - Enrico Ori <enrico.ori@mumbleideas.it>
-homepage: https://github.com/Mumble-SRL/MBAudience-Flutter
-repository: https://web.mburger.cloud
+homepage: https://web.mburger.cloud
+repository: https://github.com/Mumble-SRL/MBAudience-Flutter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
