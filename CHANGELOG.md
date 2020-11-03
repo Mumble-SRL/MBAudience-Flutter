@@ -1,3 +1,3 @@
 ## 0.0.1+1
 
-* Fixes.
+* Fixes to doc and pubspec.yaml.
