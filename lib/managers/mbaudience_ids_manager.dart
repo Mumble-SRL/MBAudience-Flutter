@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MBAudienceIdsManager {
   /// The key used to store the customId
   String _customIdKey = 'com.mumble.mburger.audience.customId';
+
   /// The key used to store the mobileUserId
   String _mobileUserIdKey = 'com.mumble.mburger.audience.mobileUserId';
 

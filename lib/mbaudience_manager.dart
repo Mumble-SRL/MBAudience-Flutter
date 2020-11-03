@@ -15,8 +15,10 @@ import 'package:permission_handler/permission_handler.dart';
 class MBAudienceManager extends WidgetsBindingObserver {
   /// Class that manages start and end od sessions and session number
   MBAudienceSessionManager _sessionManager = MBAudienceSessionManager();
+
   /// Class that manages tags, saving and retrival of them
   MBAudienceTagsManager _tagsManager = MBAudienceTagsManager();
+
   /// Class that manages custom ids andd MBurger ids.
   MBAudienceIdsManager _idsManager = MBAudienceIdsManager();
 
@@ -270,6 +272,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
 class _MBAudienceLocation {
   /// The latitude of the location
   final double latitude;
+
   /// The longitude of the location
   final double longitude;
 

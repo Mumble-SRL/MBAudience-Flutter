@@ -4,6 +4,7 @@ import 'dart:core';
 class MBAudienceTag {
   /// The identifier of the tag
   final String tag;
+
   /// The value of the tag
   String value;
 

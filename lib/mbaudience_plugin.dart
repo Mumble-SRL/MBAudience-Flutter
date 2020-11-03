@@ -44,7 +44,8 @@ class MBAudienceFlutterPlugin {
     } else if (methodCall.method == 'updateLocation' &&
         methodCall.arguments is Map) {
       print("arguments " + methodCall.arguments.toString());
-      Map<String, dynamic> latLng = Map.castFrom<dynamic, dynamic, String, dynamic>(methodCall.arguments);
+      Map<String, dynamic> latLng =
+          Map.castFrom<dynamic, dynamic, String, dynamic>(methodCall.arguments);
       double latitude = latLng["latitude"];
       double longitude = latLng["longitude"];
 
