@@ -19,7 +19,7 @@ dependencies:
   mburger: ^1.0.0
   package_info: ^2.0.0
   permission_handler: ^5.1.0+2
-  shared_preferences: ^2.0.3
+  shared_preferences: ^0.5.6+1
 
 dev_dependencies:
   flutter_test:
