@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:mbaudience/mbaudience_manager.dart';
 import 'package:mbaudience/mbaudience_plugin.dart';
 import 'package:mburger/mb_plugin/mb_plugin.dart';
@@ -41,8 +39,8 @@ class MBAudience extends MBPlugin {
   /// @param tag The tag.
   /// @param value The value of the tag.
   static Future<void> setTag({
-    @required tag,
-    @required value,
+    required tag,
+    required value,
   }) async {
     MBPluginsManager.tagChanged(tag, value: value);
     return MBAudienceManager.shared.setTag(
@@ -54,7 +52,7 @@ class MBAudience extends MBPlugin {
   /// Set multiple tags with a Map, the keys of the map are the tags, the values the values for the corresponding tag.
   /// After setting the new tags the new audience data are sent to the server.
   /// @param tags The map of tags and values.
-  static Future<void> setTags({@required Map<String, String> tags}) async {
+  static Future<void> setTags({required Map<String, String> tags}) async {
     return MBAudienceManager.shared.setTags(tags: tags);
   }
 
@@ -87,9 +85,10 @@ class MBAudience extends MBPlugin {
 
   /// Retrieves the current saved custom id.
   /// @returns a Future that completes with the current saved custom id.
-  static Future<String> getCustomId() {
+  static Future<String?> getCustomId() {
     return MBAudienceManager.shared.getCustomId();
   }
+
 //endregion
 
 //region mobile user id
@@ -109,9 +108,10 @@ class MBAudience extends MBPlugin {
 
   /// Retrieves the current saved mobile user id.
   /// @returns a Future that completes with the current saved mobile user id.
-  static Future<int> getMobileUserId() {
+  static Future<int?> getMobileUserId() {
     return MBAudienceManager.shared.getMobileUserId();
   }
+
 //endregion
 
 //region location
@@ -142,6 +142,7 @@ class MBAudience extends MBPlugin {
     MBPluginsManager.locationDataUpdated(latitude, longitude);
     return MBAudienceManager.shared.setCurrentLocation(latitude, longitude);
   }
+
 //endregion
 
 //region sessions
@@ -152,8 +153,8 @@ class MBAudience extends MBPlugin {
   }
 
   /// The date of the last session
-  static Future<DateTime> startSessionDateForSession(int session) async {
-    return startSessionDateForSession(session);
+  static Future<DateTime?> startSessionDateForSession(int session) async {
+    return MBAudienceManager.shared.startSessionDateForSession(session);
   }
 //endregion
 }

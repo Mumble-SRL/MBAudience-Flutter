@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// It uses the `shared_preferences` package to save informations.
 class MBAudienceSessionManager {
   /// The date of start of this session
-  DateTime _startSessionDate;
+  DateTime? _startSessionDate;
 
   /// Increases a session for MBAudience.
   Future<void> increaseSession() async {
@@ -67,7 +67,9 @@ class MBAudienceSessionManager {
       int sessionTime = await _totalSessionTime();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt(
-          'com.mumble.mburger.audience.sessionTime', sessionTime);
+        'com.mumble.mburger.audience.sessionTime',
+        sessionTime,
+      );
       _startSessionDate = null;
     }
   }
@@ -80,7 +82,7 @@ class MBAudienceSessionManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int time = prefs.getInt('com.mumble.mburger.audience.sessionTime') ?? 0;
     if (_startSessionDate != null) {
-      time += DateTime.now().difference(_startSessionDate).inSeconds;
+      time += DateTime.now().difference(_startSessionDate!).inSeconds;
     }
     return time;
   }
@@ -88,10 +90,10 @@ class MBAudienceSessionManager {
   /// The date of start of a session.
   /// @param session The index of the session.
   /// @return The date when the session with the index has started, if no session is found this function returns `null`.
-  Future<DateTime> startSessionDateForSession(int session) async {
+  Future<DateTime?> startSessionDateForSession(int session) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String key = _sessionDateKeyForSession(session);
-    int value = prefs.getInt(key);
+    int? value = prefs.getInt(key);
     if (value != null && value != 0) {
       return DateTime.fromMillisecondsSinceEpoch(value);
     }
