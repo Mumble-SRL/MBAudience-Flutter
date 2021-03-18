@@ -141,7 +141,7 @@ packages:
       name: mburger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-beta"
+    version: "2.0.0-beta.1"
   meta:
     dependency: transitive
     description:
@@ -204,14 +204,14 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "6.1.1"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   platform:
     dependency: transitive
     description:
