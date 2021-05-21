@@ -16,11 +16,7 @@ class MBAudienceIdsManager {
   /// @param customId The custom id that will be saved.
   Future<void> setCustomId(String customId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (customId != null) {
-      await prefs.setString(_customIdKey, customId);
-    } else {
-      await prefs.remove(_customIdKey);
-    }
+    await prefs.setString(_customIdKey, customId);
     await MBAudienceManager.shared.updateMetadata();
   }
 
@@ -31,12 +27,13 @@ class MBAudienceIdsManager {
   }
 
   /// The custom id, if present, otherwise `null`.
-  /// @returns A Future that completes with the custom id saved.
-  Future<String> getCustomId() async {
+  /// @returns A Future that completes with the custom id saved or null if no custom id is saved.
+  Future<String?> getCustomId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String customId = prefs.getString(_customIdKey);
+    String? customId = prefs.getString(_customIdKey);
     return customId;
   }
+
 //endregion
 
 //region mobile user id
@@ -44,11 +41,7 @@ class MBAudienceIdsManager {
   /// @param mobileUserId The mobile user id that will be saved.
   Future<void> setMobileUserId(int mobileUserId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (mobileUserId != null) {
-      await prefs.setInt(_mobileUserIdKey, mobileUserId);
-    } else {
-      await prefs.remove(_mobileUserIdKey);
-    }
+    await prefs.setInt(_mobileUserIdKey, mobileUserId);
     await MBAudienceManager.shared.updateMetadata();
   }
 
@@ -59,10 +52,10 @@ class MBAudienceIdsManager {
   }
 
   /// The mobile user id, if present, otherwise `null`.
-  /// @returns A Future that completes with the mobile user id saved.
-  Future<int> getMobileUserId() async {
+  /// @returns A Future that completes with the mobile user id saved or null if no mobile id is saved.
+  Future<int?> getMobileUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int mobileUserId = prefs.getInt(_mobileUserIdKey);
+    int? mobileUserId = prefs.getInt(_mobileUserIdKey);
     return mobileUserId;
   }
 //endregion

@@ -22,9 +22,9 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// Class that manages custom ids andd MBurger ids.
   MBAudienceIdsManager _idsManager = MBAudienceIdsManager();
 
-  /// Initializes the singleton, initilizing the `WidgetsBinding` callback.
+  /// Initializes the singleton, initializing the `WidgetsBinding` callback.
   MBAudienceManager._privateConstructor() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   /// Private singleton instance.
@@ -32,7 +32,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
       MBAudienceManager._privateConstructor();
 
   /// Current location, saved to send location updates only if they are distant at least 100m
-  _MBAudienceLocation _currentLocation;
+  _MBAudienceLocation? _currentLocation;
 
   /// The singleton that manages all the data sent and received to/from MBurger.
   static MBAudienceManager get shared {
@@ -44,12 +44,6 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// Increases the session using the `MBAudienceSessionManager class.
   Future<void> increaseSession() {
     return _sessionManager.increaseSession();
-  }
-
-  /// The current session retrieved from the `MBAudienceSessionManager class.
-  /// @returns The current session number.
-  Future<int> currentSession() {
-    return _sessionManager.currentSession;
   }
 
   /// Function called when the app changes the lifecycle state.
@@ -81,7 +75,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
 
   /// The custom id in the `MBAudienceIdsManager` instance.
   /// @returns a Future that completes with the saved custom id.
-  Future<String> getCustomId() async {
+  Future<String?> getCustomId() async {
     return _idsManager.getCustomId();
   }
 
@@ -101,7 +95,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
 
   /// The current saved mobile user id in the `MBAudienceIdsManager` instance.
   /// @returns a Future that completes with the current saved mobile user id.
-  Future<int> getMobileUserId() async {
+  Future<int?> getMobileUserId() async {
     return _idsManager.getMobileUserId();
   }
 
@@ -112,8 +106,8 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// @param tag The tag.
   /// @param value The value of the tag.
   Future<void> setTag({
-    @required tag,
-    @required value,
+    required tag,
+    required value,
   }) async {
     return _tagsManager.setTag(
       tag: tag,
@@ -123,7 +117,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
 
   /// Sets n tags in the `MBAudienceTagsManager` instance.
   /// @param tags a map of tags and values.
-  Future<void> setTags({@required Map<String, String> tags}) async {
+  Future<void> setTags({required Map<String, String> tags}) async {
     return _tagsManager.setTags(tags: tags);
   }
 
@@ -146,8 +140,8 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// Sets the current location and updates MBAudience data if the distance is > 100m from the last location
   /// @param latitude The new latitude.
   /// @param longitude The new longitude.
-  Future<void> setCurrentLocation(double latitude, double longitude) {
-    _MBAudienceLocation lastLocation = _currentLocation;
+  Future<void> setCurrentLocation(double latitude, double longitude) async {
+    _MBAudienceLocation? lastLocation = _currentLocation;
     _MBAudienceLocation newLocation = _MBAudienceLocation(latitude, longitude);
     if (lastLocation == null) {
       _currentLocation = newLocation;
@@ -156,8 +150,24 @@ class MBAudienceManager extends WidgetsBindingObserver {
       _currentLocation = newLocation;
       return _updateLocation();
     }
-    return null;
   }
+
+//endregion
+
+//region Session management
+  /// The current session retrieved from the `MBAudienceSessionManager class.
+  /// @returns The current session number.
+  Future<int> currentSession() {
+    return _sessionManager.currentSession;
+  }
+
+  /// The date of start of a session.
+  /// @param session The index of the session.
+  /// @return The date when the session with the index has started, if no session is found this function returns `null`.
+  Future<DateTime?> startSessionDateForSession(int session) {
+    return _sessionManager.startSessionDateForSession(session);
+  }
+
 //endregion
 
 //region api
@@ -189,34 +199,30 @@ class MBAudienceManager extends WidgetsBindingObserver {
     parameters['sessions_time'] = await _sessionManager.totalSessionTime;
 
     int currentSession = await _sessionManager.currentSession;
-    if (currentSession != null) {
-      DateTime dateTime =
-          await _sessionManager.startSessionDateForSession(currentSession);
-      if (dateTime != null) {
-        parameters['last_session'] = dateTime.millisecondsSinceEpoch ~/ 1000.0;
-      } else {
-        parameters['last_session'] = 0;
-      }
+    DateTime? dateTime =
+        await _sessionManager.startSessionDateForSession(currentSession);
+    if (dateTime != null) {
+      parameters['last_session'] = dateTime.millisecondsSinceEpoch ~/ 1000.0;
     } else {
       parameters['last_session'] = 0;
     }
 
-    int mobileUserId = await _idsManager.getMobileUserId();
+    int? mobileUserId = await _idsManager.getMobileUserId();
     if (mobileUserId != null) {
       parameters['mobile_user_id'] = mobileUserId;
     }
 
-    String customId = await _idsManager.getCustomId();
+    String? customId = await _idsManager.getCustomId();
     if (customId != null) {
       parameters['custom_id'] = customId;
     }
 
     if (_currentLocation != null) {
-      parameters['latitude'] = _currentLocation.latitude;
-      parameters['longitude'] = _currentLocation.longitude;
+      parameters['latitude'] = _currentLocation!.latitude;
+      parameters['longitude'] = _currentLocation!.longitude;
     }
 
-    List<Map<String, String>> savedTags =
+    List<Map<String, String>>? savedTags =
         await _tagsManager.getTagsAsDictionaries();
     if (savedTags != null) {
       parameters['tags'] = savedTags;
@@ -240,7 +246,6 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// Calls the API to updates location data in MBurger.
   /// It used the value stored in `_currentLocation`, if it's null the API isn't called.
   Future<void> _updateLocation() async {
-    print("Update location");
     try {
       if (_currentLocation == null) {
         return;
@@ -251,8 +256,8 @@ class MBAudienceManager extends WidgetsBindingObserver {
       Map<String, dynamic> parameters = Map<String, dynamic>();
 
       parameters.addAll(defaultParameters);
-      parameters['latitude'] = _currentLocation.latitude;
-      parameters['longitude'] = _currentLocation.longitude;
+      parameters['latitude'] = _currentLocation!.latitude;
+      parameters['longitude'] = _currentLocation!.longitude;
 
       var uri = Uri.https(MBManager.shared.endpoint, 'api/locations');
       var response = await http.post(

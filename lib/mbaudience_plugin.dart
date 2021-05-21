@@ -30,15 +30,14 @@ class MBAudienceFlutterPlugin {
   static Future<void> initializeMethodCall() async {
     if (!_methodCallInitialized) {
       _methodCallInitialized = true;
-      _channel.setMethodCallHandler(_mbaudienceHandler);
+      _channel.setMethodCallHandler(_mbAudienceHandler);
     }
   }
 
   /// Handles calls from native code to dart, used to:
   /// - update metadta when something happen (e.g. when the notification permission changes).
   /// - inform MBAudience that new location data is available
-  static Future<dynamic> _mbaudienceHandler(MethodCall methodCall) async {
-    print("method " + methodCall.method);
+  static Future<dynamic> _mbAudienceHandler(MethodCall methodCall) async {
     if (methodCall.method == 'updateMetadata') {
       MBAudienceManager.shared.updateMetadata();
     } else if (methodCall.method == 'updateLocation' &&

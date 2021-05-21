@@ -32,28 +32,28 @@ class _MyAppState extends State<MyApp> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => _setTag(),
                   child: Text('Set tag'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => _setCustomId(),
                   child: Text('Set custom id'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => _startLocationUpdates(),
                   child: Text('Start location updates'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => _stopLocationUpdates(),
                   child: Text('Stop location updates'),
                 ),

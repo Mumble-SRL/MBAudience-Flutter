@@ -1,3 +1,4 @@
-## 0.0.1+2
+## 2.0.0
 
-* Updated package description.
+* Sound null safety is here.
+* Bugfixes.
