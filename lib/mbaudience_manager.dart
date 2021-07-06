@@ -193,7 +193,11 @@ class MBAudienceManager extends WidgetsBindingObserver {
     parameters['locale'] = Platform.localeName;
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    parameters['app_version'] = packageInfo.version;
+    if (Platform.isIOS) {
+      parameters['app_version'] = packageInfo.version;
+    }else{
+      parameters['app_version'] = packageInfo.buildNumber;
+    }
 
     parameters['sessions'] = await _sessionManager.currentSession;
     parameters['sessions_time'] = await _sessionManager.totalSessionTime;
