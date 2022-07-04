@@ -24,7 +24,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
 
   /// Initializes the singleton, initializing the `WidgetsBinding` callback.
   MBAudienceManager._privateConstructor() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   /// Private singleton instance.
@@ -195,7 +195,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     if (Platform.isIOS) {
       parameters['app_version'] = packageInfo.version;
-    }else{
+    } else {
       parameters['app_version'] = packageInfo.buildNumber;
     }
 
