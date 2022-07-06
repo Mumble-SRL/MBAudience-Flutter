@@ -57,9 +57,9 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
         applicationContext = null
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?): Boolean {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray): Boolean {
         if (requestCode == reqPermissionCode) {
-            grantResults?.let {
+            grantResults.let {
                 if (it.isNotEmpty()) {
                     var allOk = true
                     for (res in it) {
