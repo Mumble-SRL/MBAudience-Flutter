@@ -5,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// It used the `shared_preferences` package to save them.
 class MBAudienceIdsManager {
   /// The key used to store the customId
-  String _customIdKey = 'com.mumble.mburger.audience.customId';
+  final String _customIdKey = 'com.mumble.mburger.audience.customId';
 
   /// The key used to store the mobileUserId
-  String _mobileUserIdKey = 'com.mumble.mburger.audience.mobileUserId';
+  final String _mobileUserIdKey = 'com.mumble.mburger.audience.mobileUserId';
 
   //region custom id
 

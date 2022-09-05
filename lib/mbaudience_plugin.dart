@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:mbaudience/mbaudience_manager.dart';
 
 /// MBAudience flutter plugin class to interact with native APIs
 class MBAudienceFlutterPlugin {
   /// The method channel used to interact with native APIs.
-  static const MethodChannel _channel = const MethodChannel('mbaudience');
+  static const MethodChannel _channel = MethodChannel('mbaudience');
 
   /// Starts location updates and retuns the result.
   static Future<void> startLocationUpdates() async {
@@ -42,7 +43,7 @@ class MBAudienceFlutterPlugin {
       MBAudienceManager.shared.updateMetadata();
     } else if (methodCall.method == 'updateLocation' &&
         methodCall.arguments is Map) {
-      print("arguments " + methodCall.arguments.toString());
+      debugPrint("arguments ${methodCall.arguments}");
       Map<String, dynamic> latLng =
           Map.castFrom<dynamic, dynamic, String, dynamic>(methodCall.arguments);
       double latitude = latLng["latitude"];

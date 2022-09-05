@@ -8,19 +8,19 @@ import 'package:mbaudience/managers/mbaudience_ids_manager.dart';
 import 'package:mbaudience/managers/mbaudience_session_manager.dart';
 import 'package:mbaudience/managers/mbaudience_tags_manager.dart';
 import 'package:mburger/mb_manager.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 /// Main singleton that manages the state of MBAudience and communication with MBurger APIs.
 class MBAudienceManager extends WidgetsBindingObserver {
   /// Class that manages start and end od sessions and session number
-  MBAudienceSessionManager _sessionManager = MBAudienceSessionManager();
+  final MBAudienceSessionManager _sessionManager = MBAudienceSessionManager();
 
   /// Class that manages tags, saving and retrival of them
-  MBAudienceTagsManager _tagsManager = MBAudienceTagsManager();
+  final MBAudienceTagsManager _tagsManager = MBAudienceTagsManager();
 
   /// Class that manages custom ids andd MBurger ids.
-  MBAudienceIdsManager _idsManager = MBAudienceIdsManager();
+  final MBAudienceIdsManager _idsManager = MBAudienceIdsManager();
 
   /// Initializes the singleton, initializing the `WidgetsBinding` callback.
   MBAudienceManager._privateConstructor() {
@@ -176,7 +176,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
     var defaultParameters = await MBManager.shared.defaultParameters();
     var headers = await MBManager.shared.headers(contentTypeJson: true);
 
-    Map<String, dynamic> parameters = Map<String, dynamic>();
+    Map<String, dynamic> parameters = <String, dynamic>{};
     parameters.addAll(defaultParameters);
     if (Platform.isIOS) {
       PermissionStatus pushPermission = await Permission.notification.status;
@@ -257,7 +257,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
       var defaultParameters = await MBManager.shared.defaultParameters();
       var headers = await MBManager.shared.headers(contentTypeJson: true);
 
-      Map<String, dynamic> parameters = Map<String, dynamic>();
+      Map<String, dynamic> parameters = <String, dynamic>{};
 
       parameters.addAll(defaultParameters);
       parameters['latitude'] = _currentLocation!.latitude;
@@ -271,7 +271,7 @@ class MBAudienceManager extends WidgetsBindingObserver {
       );
       MBManager.checkResponse(response.body, checkBody: false);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 //endregion
@@ -296,8 +296,8 @@ class _MBAudienceLocation {
   double distanceFromLocation(_MBAudienceLocation location) {
     double lat1 = location.latitude;
     double lon1 = location.longitude;
-    double lat2 = this.latitude;
-    double lon2 = this.longitude;
+    double lat2 = latitude;
+    double lon2 = longitude;
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
