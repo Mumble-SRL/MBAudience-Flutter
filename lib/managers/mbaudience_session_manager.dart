@@ -23,7 +23,7 @@ class MBAudienceSessionManager {
   /// @return The key to use to save in the shared preference.
   String _sessionDateKeyForSession(int session) {
     String sessionString = session.toString();
-    return "com.mumble.mburger.audience.sessionTime.session" + sessionString;
+    return "com.mumble.mburger.audience.sessionTime.session$sessionString";
   }
 
   /// Getter for the current session index.

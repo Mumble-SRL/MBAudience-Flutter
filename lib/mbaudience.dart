@@ -25,6 +25,7 @@ class MBAudience extends MBPlugin {
 
   /// The function run at startup by MBurger, initializes the plugin and do the startup work.
   /// It increments the session number and updates the metadata.
+  @override
   Future<void> startupBlock() async {
     await MBAudienceManager.shared.increaseSession();
     await MBAudienceManager.shared.updateMetadata();
