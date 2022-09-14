@@ -1,3 +1,3 @@
-## 2.0.3
+## 2.0.3+1
 
-* Updated Flutter version to 3.3.0
+* Downgraded permission_handler to 9.2.0
