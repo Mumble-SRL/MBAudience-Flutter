@@ -1,3 +1,3 @@
-## 2.0.3+1
+## 2.0.4
 
-* Downgraded permission_handler to 9.2.0
+* Updated dependencies.
