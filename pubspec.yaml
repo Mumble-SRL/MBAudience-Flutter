@@ -1,6 +1,6 @@
 name: mbaudience
 description: MBAudience is a plugin libary for MBurger, that lets you track user data and behavior inside your and to target messages only to specific users or groups of users.
-version: 2.1.0
+version: 2.1.1
 homepage: https://web.mburger.cloud/engagement-platform
 repository: https://github.com/Mumble-SRL/MBAudience-Flutter
 
@@ -11,11 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.5
-  mburger: ^2.1.0
-  package_info_plus: ^3.0.2
-  permission_handler: ^10.2.0
-  shared_preferences: ^2.0.15
+  http: ^1.1.0
+  mburger: ^2.1.1
+  package_info_plus: ^4.0.2
+  permission_handler: ^10.4.3
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
