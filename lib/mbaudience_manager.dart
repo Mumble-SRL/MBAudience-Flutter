@@ -46,6 +46,9 @@ class MBAudienceManager extends WidgetsBindingObserver {
     return _sessionManager.increaseSession();
   }
 
+  /// Used to prevent event burst when paused/resumed were called constantly
+  DateTime? _lastResumedDate;
+
   /// Function called when the app changes the lifecycle state.
   /// @param state The new app state.
   @override
@@ -53,9 +56,18 @@ class MBAudienceManager extends WidgetsBindingObserver {
     if (state != AppLifecycleState.resumed) {
       _sessionManager.endSession();
     } else {
-      _sessionManager.startSession().then(
-            (_) => updateMetadata(),
-          );
+      bool shouldStartSession = _lastResumedDate == null;
+      if (_lastResumedDate != null) {
+        shouldStartSession = DateTime.now().difference(_lastResumedDate!) >
+            const Duration(seconds: 30);
+      }
+
+      if (shouldStartSession) {
+        _lastResumedDate = DateTime.now();
+        _sessionManager.startSession().then(
+              (_) => updateMetadata(),
+            );
+      }
     }
   }
 
