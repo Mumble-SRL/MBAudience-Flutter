@@ -3,12 +3,14 @@ import 'package:mbaudience/mbaudience.dart';
 import 'package:mburger/mburger.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -34,28 +36,28 @@ class _MyAppState extends State<MyApp> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   onPressed: () => _setTag(),
-                  child: Text('Set tag'),
+                  child: const Text('Set tag'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   onPressed: () => _setCustomId(),
-                  child: Text('Set custom id'),
+                  child: const Text('Set custom id'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   onPressed: () => _startLocationUpdates(),
-                  child: Text('Start location updates'),
+                  child: const Text('Start location updates'),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   onPressed: () => _stopLocationUpdates(),
-                  child: Text('Stop location updates'),
+                  child: const Text('Stop location updates'),
                 ),
               ),
             ],
