@@ -40,8 +40,8 @@ class MBAudience extends MBPlugin {
   /// @param tag The tag.
   /// @param value The value of the tag.
   static Future<void> setTag({
-    required tag,
-    required value,
+    required String tag,
+    required String value,
   }) async {
     MBPluginsManager.tagChanged(tag, value: value);
     return MBAudienceManager.shared.setTag(

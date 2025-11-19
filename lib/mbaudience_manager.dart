@@ -118,8 +118,8 @@ class MBAudienceManager extends WidgetsBindingObserver {
   /// @param tag The tag.
   /// @param value The value of the tag.
   Future<void> setTag({
-    required tag,
-    required value,
+    required String tag,
+    required String value,
   }) async {
     return _tagsManager.setTag(
       tag: tag,
