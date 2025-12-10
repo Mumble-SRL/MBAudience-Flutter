@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    MBManager.shared.apiToken = 'YOUR_API_TOKEN';
+    MBManager.shared.apiToken = 'd56411e2ffcc547cd11de4bea08aff46b2a201ce';
     MBManager.shared.plugins = [MBAudience()];
 
     super.initState();

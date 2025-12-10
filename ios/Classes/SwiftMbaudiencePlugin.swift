@@ -1,19 +1,21 @@
+import CoreLocation
 import Flutter
 import UIKit
-import CoreLocation
 
-public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin {
+public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate {
     private static var staticChannel: FlutterMethodChannel?
     private var locationManager: CLLocationManager?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "mbaudience", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(
+            name: "mbaudience", binaryMessenger: registrar.messenger())
         let instance = SwiftMbaudiencePlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         registrar.addApplicationDelegate(instance)
+        registrar.addSceneDelegate(instance)
         staticChannel = channel
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if call.method == "startLocationUpdates" {
             startLocationUpdates()
@@ -42,18 +44,26 @@ public class SwiftMbaudiencePlugin: NSObject, FlutterPlugin {
         }
     }
 
-    public func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    public func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
         SwiftMbaudiencePlugin.staticChannel?.invokeMethod("updateMetadata", arguments: nil)
     }
 }
 
 extension SwiftMbaudiencePlugin: CLLocationManagerDelegate {
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(
+        _ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]
+    ) {
         if let lastLocation = locations.last {
-            let arguments: [String: Any] = ["latitude": lastLocation.coordinate.latitude,
-                                            "longitude": lastLocation.coordinate.longitude]
-            SwiftMbaudiencePlugin.staticChannel?.invokeMethod("updateLocation",
-                                                              arguments: arguments)
+            let arguments: [String: Any] = [
+                "latitude": lastLocation.coordinate.latitude,
+                "longitude": lastLocation.coordinate.longitude,
+            ]
+            SwiftMbaudiencePlugin.staticChannel?.invokeMethod(
+                "updateLocation",
+                arguments: arguments)
         }
     }
 

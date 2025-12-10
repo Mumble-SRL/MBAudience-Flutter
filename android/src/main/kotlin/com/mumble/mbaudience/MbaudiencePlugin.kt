@@ -98,30 +98,28 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
                 mLocationRequest.setExpirationDuration(4000)
 
                 locationCallback = object : LocationCallback() {
-                    override fun onLocationResult(locationResult: LocationResult?) {
-                        if (locationResult != null) {
-                            var mostAccurate: Location? = null
-                            for (location in locationResult.locations) {
-                                if (mostAccurate == null) {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        var mostAccurate: Location? = null
+                        for (location in locationResult.locations) {
+                            if (mostAccurate == null) {
+                                mostAccurate = location
+                            } else {
+                                if (location.accuracy < mostAccurate.accuracy) {
                                     mostAccurate = location
-                                } else {
-                                    if (location.accuracy < mostAccurate.accuracy) {
-                                        mostAccurate = location
-                                    }
                                 }
                             }
+                        }
 
-                            if (mostAccurate != null) {
-                                val locationMap = mutableMapOf<String, Double>()
-                                locationMap["latitude"] = mostAccurate.latitude
-                                locationMap["longitude"] = mostAccurate.longitude
-                                channel.invokeMethod("updateLocation", locationMap, null)
-                            }
+                        if (mostAccurate != null) {
+                            val locationMap = mutableMapOf<String, Double>()
+                            locationMap["latitude"] = mostAccurate.latitude
+                            locationMap["longitude"] = mostAccurate.longitude
+                            channel.invokeMethod("updateLocation", locationMap, null)
                         }
                     }
                 }
 
-                locationClient?.requestLocationUpdates(mLocationRequest, locationCallback, Looper.getMainLooper())
+                locationClient?.requestLocationUpdates(mLocationRequest, locationCallback!!, Looper.getMainLooper())
             }
         } else {
             Utils.askForPermission(activity!!, reqPermissionCode)
@@ -129,7 +127,7 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
     }
 
     fun stopLocationUpdates() {
-        locationClient?.removeLocationUpdates(locationCallback)
+        locationClient?.removeLocationUpdates(locationCallback!!)
         locationClient = null
         locationCallback = null
     }

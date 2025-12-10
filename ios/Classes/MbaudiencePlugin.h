@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface MbaudiencePlugin : NSObject<FlutterPlugin>
+@interface MbaudiencePlugin : NSObject<FlutterPlugin, FlutterSceneLifeCycleDelegate>
 @end
