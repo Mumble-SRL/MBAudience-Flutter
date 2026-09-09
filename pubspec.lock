@@ -246,7 +246,7 @@ packages:
       path: "../MBurger-Dart"
       relative: true
     source: path
-    version: "2.1.8"
+    version: "2.2.0"
   meta:
     dependency: transitive
     description:
