@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Looper
-import android.util.Log
-import androidx.annotation.NonNull
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -30,7 +33,7 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
     private var applicationContext: Context? = null
     private var activity: Activity? = null
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "mbaudience")
         channel.setMethodCallHandler(this)
     }
@@ -80,7 +83,7 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
         return false
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "startLocationUpdates" -> startLocationUpdates()
             "stopLocationUpdates" -> stopLocationUpdates()
@@ -93,9 +96,12 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
             if (((locationCallback == null) || (locationClient == null)) && (applicationContext != null) && (activity != null)) {
                 locationClient = LocationServices.getFusedLocationProviderClient(applicationContext!!)
 
-                val mLocationRequest = LocationRequest.create()
-                mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-                mLocationRequest.setExpirationDuration(4000)
+                val mLocationRequest = LocationRequest.Builder(
+                    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+                    1000L
+                )
+                    .setDurationMillis(4000L)
+                    .build()
 
                 locationCallback = object : LocationCallback() {
                     override fun onLocationResult(locationResult: LocationResult) {
@@ -132,7 +138,7 @@ class MbaudiencePlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPer
         locationCallback = null
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 }

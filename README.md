@@ -6,7 +6,7 @@ MBAudience depends on the following packages:
 
  - [mburger](https://pub.dev/packages/mburger)
  - [http](https://pub.dev/packages/http)
- - [package_info](https://pub.dev/packages/package_info)
+ - [package_info_plus](https://pub.dev/packages/package_info_plus)
  - [permission_handler](https://pub.dev/packages/permission_handler)
  - [shared_preferences](https://pub.dev/packages/shared_preferences)
 

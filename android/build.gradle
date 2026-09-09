@@ -1,21 +1,23 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 group 'com.mumble.mbaudience'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '2.2.21'
+    ext.kotlin_version = '2.3.21'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.1'
+        classpath 'com.android.tools.build:gradle:9.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.4.4'
     }
 }
 
-rootProject.allprojects {
+allprojects {
     repositories {
         google()
         mavenCentral()
@@ -26,17 +28,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace "com.mumble.mbaudience"
-    compileSdkVersion 36
+    namespace 'com.mumble.mbaudience'
+    compileSdk 36
 
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
-        }
-    }
-
-    kotlin {
-        jvmToolchain(21)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -44,11 +41,17 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 24
+        minSdk 24
     }
 
-    lintOptions {
+    lint {
         disable 'InvalidPackage'
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 

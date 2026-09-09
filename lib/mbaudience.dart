@@ -18,7 +18,7 @@ class MBAudience extends MBPlugin {
     await MBAudienceFlutterPlugin.initializeMethodCall();
   }
 
-//region plugin
+  //region plugin
 
   /// The order of startup for this plugin, in MBurger
   int order = 1;
@@ -31,9 +31,9 @@ class MBAudience extends MBPlugin {
     await MBAudienceManager.shared.updateMetadata();
   }
 
-//endregion
+  //endregion
 
-//region tags
+  //region tags
 
   /// Set the tag with a key and a value, if a tag with that key already exists its value is replaced by the new value.
   /// After setting the new tag the new audience data are sent to the server.
@@ -44,10 +44,7 @@ class MBAudience extends MBPlugin {
     required String value,
   }) async {
     MBPluginsManager.tagChanged(tag, value: value);
-    return MBAudienceManager.shared.setTag(
-      tag: tag,
-      value: value,
-    );
+    return MBAudienceManager.shared.setTag(tag: tag, value: value);
   }
 
   /// Set multiple tags with a Map, the keys of the map are the tags, the values the values for the corresponding tag.
@@ -69,9 +66,9 @@ class MBAudience extends MBPlugin {
     return MBAudienceManager.shared.removeTags(tags);
   }
 
-//endregion
+  //endregion
 
-//region custom id
+  //region custom id
   /// Set a custom id that will be sent with the audience data, this can be used if  you want to target users coming from different platforms from `MBurger`.
   /// After setting this id the new audience data are sent to the server.
   /// @param customId The custom id, this value is saved and will be sent until `removeCustomId` is called.
@@ -90,9 +87,9 @@ class MBAudience extends MBPlugin {
     return MBAudienceManager.shared.getCustomId();
   }
 
-//endregion
+  //endregion
 
-//region mobile user id
+  //region mobile user id
   /// Set the mobile user id of the user currently logged in MBurger.
   /// After setting this id the new audience data are sent to the server.
   ///
@@ -113,9 +110,9 @@ class MBAudience extends MBPlugin {
     return MBAudienceManager.shared.getMobileUserId();
   }
 
-//endregion
+  //endregion
 
-//region location
+  //region location
   /// Start collecting location data and to send it to the server.
   /// iOS: MBAudience uses `startMonitoringSignificantLocationChanges` of CoreLocation
   /// with an accuracy of `kCLLocationAccuracyHundredMeters`.
@@ -134,7 +131,6 @@ class MBAudience extends MBPlugin {
     return MBAudienceFlutterPlugin.stopLocationUpdates();
   }
 
-  //TODO: Customize the min distance value (now constant at 100m)
   /// Updates current user location with the parameters passed and calls the api to update the device data.
   /// Note: a new location is sent to MBurger only if it's distant at least 100m from the last location seen.
   /// @param latitude Current latitude.
@@ -144,9 +140,9 @@ class MBAudience extends MBPlugin {
     return MBAudienceManager.shared.setCurrentLocation(latitude, longitude);
   }
 
-//endregion
+  //endregion
 
-//region sessions
+  //region sessions
 
   /// Returns the current session tracked by `MBAudience`
   static Future<int> get currentSession async {
@@ -157,5 +153,5 @@ class MBAudience extends MBPlugin {
   static Future<DateTime?> startSessionDateForSession(int session) async {
     return MBAudienceManager.shared.startSessionDateForSession(session);
   }
-//endregion
+  //endregion
 }

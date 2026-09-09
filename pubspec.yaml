@@ -5,17 +5,24 @@ homepage: https://web.mburger.cloud/engagement-platform
 repository: https://github.com/Mumble-SRL/MBAudience-Flutter
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.0.0"
+  sdk: ^3.11.0
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:
     sdk: flutter
   http: ^1.6.0
-  mburger: ^2.1.7
-  package_info_plus: ^9.0.0
-  permission_handler: ^12.0.1
-  shared_preferences: ^2.5.4
+  mburger: ^2.1.8
+  package_info_plus: ^10.2.1
+  permission_handler: ^13.0.2
+  shared_preferences: ^2.5.5
+
+# Standalone builds use the local modernized MBurger (device_info_plus ^13 →
+# win32 ^6), which package_info_plus ^10 also requires. Ignored when consumed
+# by a parent app that provides its own overrides.
+dependency_overrides:
+  mburger:
+    path: ../MBurger-Dart
 
 dev_dependencies:
   flutter_test:
